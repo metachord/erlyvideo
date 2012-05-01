@@ -87,11 +87,6 @@ handle_control({connected, UserId, SessionId}, Session) ->
   ems_event:user_connected(Host, self(), [{user_id,UserId}, {session_id,SessionId}]),
   {ok, Session};
 
-handle_control({connected, UserId, SessionId}, Session) ->
-  Host = rtmp_session:get(Session, host),
-  ems_event:user_connected(Host, self(), [{user_id,UserId}, {session_id,SessionId}]),
-  {ok, Session};
-
 handle_control({close_stream, _StreamId, Player, Recording}, Session) ->
   ems_media:stop(Player),
   case Recording of
